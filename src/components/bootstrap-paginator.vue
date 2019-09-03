@@ -16,7 +16,7 @@ export default {
   data() {
     return {
       list: [
-        { con: "内容1" },
+        { con: "内容" },
         { con: "内容2" },
         { con: "内容3" },
         { con: "内容4" },
