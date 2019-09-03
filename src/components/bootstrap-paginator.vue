@@ -1,8 +1,8 @@
 <template>
   <div>
+    <div id="conten"></div>
     <div class="pagination">
-        <ul id="pagination1" v-for="(item,i) in list" :key="i">
-            
+        <ul id="pagination1">
         </ul>
     </div>
     <p id="text"></p>
@@ -41,43 +41,30 @@ export default {
         { con: "内容23" },
         { con: "内容24" }
       ],
-      leftNum1: "", // 第一个分页的 数  [
-      rightNum1: "", // 第一个分页的  数 )
-      leftNum2: "", // 第二个分页的 数  [
-      rightNum2: "" // 第二个分页的 数  )
     };
   },
-  watch: {
-    // page() {
-    //   this.initPage(totalPages, pageSize, pageNum);
-    // }
-  },
   methods: {
-    /**
-     * 分页
-     * totalPages: 总页数
-     * visiblePages: 展示的页数，我一般都是用10，所以写死了
-     * currentPage: 当前页
-     */
     initPage() {
+      let _this=this
       $("#pagination1").jqPaginator({
         totalCounts: 24,
         visiblePages: 10,
         currentPage: 1,
         pageSize:5,
         onPageChange: function(num, type) {
+            $('#conten').children().remove()
           console.log("当前第" + num + "页",type);
             $("#text").html("当前第" + num + "页");
-            
+            let arr=[]
+            arr=_this.list.slice((num-1)*5,num*5)
+            arr.forEach(element => {
+              $('#conten').append('<p>'+element.con+'</p>')
+            });
         }
       });
     }
   },
   mounted() {
-    // $("#pagination1").jqPaginator("option", {
-    //   currentPage: 1
-    // });
-    console.log('1')
     this.initPage();
   }
 };
